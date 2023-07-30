@@ -1,42 +1,47 @@
+// Include desired packages ===
 #include <iostream>
-// include all classes in the directory
-#include "basics.h"
-// import and alias a package
-using std::cout;
-using std::endl;
 
-// Windows main function: WinMain
-// Mac/Linux main function: main
-int WinMain() {
-    // Pointers demo ----------------------------
+// Include all classes in the directory ===
+#include "Watercraft.h"
+#include "Leisurecraft.h"
 
-    // variable with value 5
+// Lift specific names to the current namespace ===
+using std::cout;  // cout
+using std::endl;  // endl
+
+// on Windows: WinMain
+// on Linux/Mac: main
+int main() {
+    // Pointers demo -----------------------------
+
+    // Primitives
     int x = 5;
+    int *p = &x;  // pointers point to addresses
+    int v = *p;  // variables store what's pointed-at
 
-    // pointer p = ahjf7fhkwfe
-    int *p = &x;  
+    cout << "Variable x has value 5" << endl;
+    cout << "Variable p has value " << p << endl;  // 0x16d0a31a8
+    cout << "Variable p points to value " << *p << endl;  // 5
+    cout << "Variable v has value " << v << endl;  // 5
 
-    // value at p = 5
-    int x_value = *p;
-
-    // reassign value at p to 10
     *p = 10;
-    cout << "Value changed to 10" << endl;
+    cout << "Pointer p now points to 10..." << endl;
+    cout << "Variable p has value " << p << endl;  // 0x16d0a31a8
+    cout << "Variable p points to value " << *p << endl;  // 10
+    cout << "Variable v has value " << v << endl;  // 5
 
-    // ------------------------------------------
+    // Dynamicaly initialized objects
+    Watercraft *dyna_boat = new Watercraft(10, "DynamicBoatz");
 
-    // Object/null pointer demo -----------------
+    delete dyna_boat;
+    dyna_boat = nullptr;  // delete pointer and set to nullpointer to be safe
 
-    // initalize object
-    wrap::Basics o;
+    // Statically initialized objects
+    Watercraft stat_boat;
+    Watercraft *bp = &stat_boat;  // pointer should match pointed type
 
-    // pointer types should match its object
-    wrap::Basics *q = &o;
+    //delete bp; static object pointers deleted by ___??
 
-    // delete pointer and set to nullpointer to be safe
-    delete q;
-    q = nullptr;
-
-    // ------------------------------------------
+    cout << " ----- Finished executing main ----- " << endl;
     return 0;
 }
